@@ -1,4 +1,3 @@
-
 import java.util.List;
 
 class Result {
@@ -13,16 +12,16 @@ class Result {
      *  3. DOUBLE x
      */
 
-    public static double interpolate_by_newton(List<Double> xAxis, List<Double> yAxis, double x) {
-        int pointsMount = getValidateInputCount(xAxis, yAxis);
-        double valueOfPolinom = yAxis.get(0);
+    public static double interpolate_by_newton(List<Double> x_axis, List<Double> y_axis, double x) {
+        int pointsMount = getValidateInputCount(x_axis, y_axis);
+        double valueOfPolinom = y_axis.get(0);
         for (int q = 1; q < pointsMount; q++) {
             double multiplication = 1.0d;
             for (int i = 0; i <= q - 1; i++) {
-                multiplication *= (x - xAxis.get(i));
+                multiplication *= (x - x_axis.get(i));
             }
             try {
-                valueOfPolinom += getDifference(xAxis, yAxis, q) * multiplication;
+                valueOfPolinom += getDifference(x_axis, y_axis, q) * multiplication;
             } catch (DivisionByZeroException exp) {
                 return valueOfPolinom;
             }
@@ -55,12 +54,12 @@ class Result {
     }
 
     /**
-     * @param xAxis array of x-values of points.
-     * @param yAxis array of y-values of points.
+     * @param x_axis array of x-values of points.
+     * @param y_axis array of y-values of points.
      * @return minimum of count of arrays' values. It must have the same quantity.
      */
-    private static int getValidateInputCount(List<Double> xAxis, List<Double> yAxis) {
-        return Math.min(xAxis.size(), yAxis.size());
+    private static int getValidateInputCount(List<Double> x_axis, List<Double> y_axis) {
+        return Math.min(x_axis.size(), y_axis.size());
     }
 }
 
