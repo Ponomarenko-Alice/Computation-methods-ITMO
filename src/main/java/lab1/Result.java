@@ -1,3 +1,5 @@
+package lab1;
+
 import java.util.List;
 
 class Result {
@@ -64,7 +66,7 @@ class Result {
 }
 
 /**
- * Result will be calculated until the invalid point.
+ * lab1.Result will be calculated until the invalid point.
  */
 class DivisionByZeroException extends RuntimeException {
     @Override
