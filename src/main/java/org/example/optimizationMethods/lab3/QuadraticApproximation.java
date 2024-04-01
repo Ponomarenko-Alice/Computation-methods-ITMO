@@ -1,4 +1,6 @@
-package org.example.optimizationMethods;
+package org.example.optimizationMethods.lab3;
+
+import org.example.optimizationMethods.Point;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;

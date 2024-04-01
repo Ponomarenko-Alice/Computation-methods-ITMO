@@ -1,4 +1,6 @@
-package org.example.optimizationMethods;
+package org.example.optimizationMethods.lab2;
+
+import org.example.optimizationMethods.Point;
 
 public class GoldSectionMethod {
     public static void main(String[] args) {
