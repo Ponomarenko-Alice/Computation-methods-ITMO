@@ -1,5 +1,6 @@
 package org.example.optimizationMethods.lab2;
 
+import org.example.optimizationMethods.CubePoint;
 import org.example.optimizationMethods.Point;
 
 public class DoubleDevMethod {
@@ -15,7 +16,7 @@ public class DoubleDevMethod {
 
     private static Point getExtremumPoint(double leftSegmentEnd, double rightSegmentEnd, double epsilon) {
         double endPointDifference;
-        Point answerPoint = new Point();
+        CubePoint answerPoint = new CubePoint(0, 0, 0);
         double x1 = (leftSegmentEnd + rightSegmentEnd - epsilon) / 2;
         double x2 = (leftSegmentEnd + rightSegmentEnd + epsilon) / 2;
         double y1 = getValueOfFunction(x1);

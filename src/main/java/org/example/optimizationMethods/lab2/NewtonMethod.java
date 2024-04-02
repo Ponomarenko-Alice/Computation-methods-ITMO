@@ -1,5 +1,6 @@
 package org.example.optimizationMethods.lab2;
 
+import org.example.optimizationMethods.CubePoint;
 import org.example.optimizationMethods.Point;
 
 public class NewtonMethod {
@@ -22,9 +23,12 @@ public class NewtonMethod {
     }
 
 
+    public NewtonMethod() {
+    }
+
     private static Point getExtremumPoint(double leftSegmentEnd, double rightSegmentEnd, double epsilon) {
         double endPointDifference;
-        Point answerPoint = new Point();
+        CubePoint answerPoint = new CubePoint(0, 0, 0);
         double x = (leftSegmentEnd + rightSegmentEnd) / 2;
         double x1 = x - (getDerivativeOfFunction(x) / getDoubleDerivativeOfFunction(x));
         endPointDifference = Math.abs(x - x1);

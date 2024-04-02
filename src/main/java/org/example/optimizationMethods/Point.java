@@ -1,6 +1,6 @@
 package org.example.optimizationMethods;
 
-public class Point {
+public abstract class Point {
     private double x;
     private double y;
 

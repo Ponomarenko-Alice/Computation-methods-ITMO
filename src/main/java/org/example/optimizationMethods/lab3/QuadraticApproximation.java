@@ -1,8 +1,8 @@
 package org.example.optimizationMethods.lab3;
 
+import org.example.optimizationMethods.CubePoint;
 import org.example.optimizationMethods.Point;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -123,7 +123,7 @@ public class QuadraticApproximation {
                 }
             }
         }
-        Point answerPoint = new Point();
+        CubePoint answerPoint = new CubePoint(0, 0, 0);
         answerPoint.setX(qx);
         answerPoint.setY(getValueOfFunction(qx));
         return answerPoint;

@@ -1,5 +1,6 @@
 package org.example.optimizationMethods.lab2;
 
+import org.example.optimizationMethods.CubePoint;
 import org.example.optimizationMethods.Point;
 
 public class SegmentationMethod {
@@ -19,7 +20,7 @@ public class SegmentationMethod {
 
     private static Point getExtremumPoint(double leftSegmentEnd, double rightSegmentEnd, double epsilon) {
         double endPointDifference;
-        Point answerPoint = new Point();
+        CubePoint answerPoint = new CubePoint(0, 0, 0);
         double x = leftSegmentEnd - ((leftSegmentEnd - rightSegmentEnd) * getDerivativeOfFunction(leftSegmentEnd) / (getDerivativeOfFunction(leftSegmentEnd) - getDerivativeOfFunction(rightSegmentEnd)));
         double derX = getDerivativeOfFunction(x);
         double derA = getDerivativeOfFunction(leftSegmentEnd);

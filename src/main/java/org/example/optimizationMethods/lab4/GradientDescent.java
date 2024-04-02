@@ -2,7 +2,7 @@ package org.example.optimizationMethods.lab4;
 
 public class GradientDescent {
     private static final double epsilon = 0.01;
-    private static final double gamma = 0.25;
+    private static final double delta = 0.1;
 
     private static double getValueOfFunction(double a, double b, double c) {
         return 2 * a * a + b * b * b + c * c - a * b + 2 * a * c - b;
@@ -27,12 +27,12 @@ public class GradientDescent {
     }
 
     public static void main(String[] args) {
-        double a = 0, b = 0, c = 0;
+        double a = 0.5, b = 0.5, c = 0.5;
         double functionValue = getValueOfFunction(a, b, c);
         CubeGradient cubeGradient = getCubeGradient(a, b, c);
-        double newA = a + gamma * cubeGradient.getA();
-        double newB = b + gamma * cubeGradient.getB();
-        double newC = c + gamma * cubeGradient.getC();
+        double newA = a + delta * cubeGradient.getA();
+        double newB = b + delta * cubeGradient.getB();
+        double newC = c + delta * cubeGradient.getC();
         double newFunctionValue = getValueOfFunction(newA, newB, newC);
         while (Math.abs(newFunctionValue - functionValue) > epsilon) {
             cubeGradient = getCubeGradient(newA, newB, newC);
@@ -40,9 +40,9 @@ public class GradientDescent {
             a = newA;
             b = newB;
             c = newC;
-            newA = a + gamma * cubeGradient.getA();
-            newB = b + gamma * cubeGradient.getB();
-            newC = c + gamma * cubeGradient.getC();
+            newA = a + delta * cubeGradient.getA();
+            newB = b + delta * cubeGradient.getB();
+            newC = c + delta * cubeGradient.getC();
             newFunctionValue = getValueOfFunction(newA, newB, newC);
         }
         System.out.println(newFunctionValue);

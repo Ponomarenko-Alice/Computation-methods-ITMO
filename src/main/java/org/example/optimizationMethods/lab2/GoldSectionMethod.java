@@ -1,5 +1,6 @@
 package org.example.optimizationMethods.lab2;
 
+import org.example.optimizationMethods.CubePoint;
 import org.example.optimizationMethods.Point;
 
 public class GoldSectionMethod {
@@ -14,7 +15,7 @@ public class GoldSectionMethod {
     }
 
     private static Point getExtremumPoint(double leftSegmentEnd, double rightSegmentEnd, double epsilon) {
-        Point answerPoint = new Point();
+        CubePoint answerPoint = new CubePoint(0, 0, 0);
         double goldSection = 1.61803398875;
         double x1 = rightSegmentEnd - (rightSegmentEnd - leftSegmentEnd) / goldSection;
         double x2 = leftSegmentEnd + (rightSegmentEnd - leftSegmentEnd) / goldSection;
