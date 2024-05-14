@@ -16,7 +16,7 @@ class Result {
 
     public static double interpolate_by_newton(List<Double> x_axis, List<Double> y_axis, double x) {
         int pointsMount = getValidateInputCount(x_axis, y_axis);
-        double valueOfPolinom = y_axis.get(0);
+        double valueOfPolinom = y_axis.getFirst();
         for (int q = 1; q < pointsMount; q++) {
             double multiplication = 1.0d;
             for (int i = 0; i <= q - 1; i++) {
