@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 class Result {
 
-    private static final int MAX_ITERATIONS_COUNT = 1000;
+    private static final int MAX_ITERATIONS_COUNT = 100000;
     public static boolean isMethodApplicable = true;
     public static String errorMessage;
 
@@ -28,13 +28,8 @@ class Result {
             errorMessage = "The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.";
             return null; //null value will be ignored by error "isMethodApplicable"
         } else {
-            int[] permutVecor = getPermutationVector(massiveMatrix, diagonalDominanceMatrix);
             double[] array = getXVector(n, diagonalDominanceMatrix, bVector, epsilon);
-            double[] permutedBackVector = new double[permutVecor.length];
-            for (int i = 0; i<permutVecor.length; i++) {
-                permutedBackVector[permutVecor[i]] = array[i];
-            }
-            return Arrays.stream(permutedBackVector).boxed().collect(Collectors.toList());
+            return Arrays.stream(array).boxed().collect(Collectors.toList());
         }
     }
 
@@ -191,37 +186,6 @@ class Result {
         indices[i] = indices[j];
         indices[j] = temp;
     }
-
-    private static int[] getPermutationVector(double[][] startMatrix, double[][] permutMatrix) {
-        int[] permutationVector = new int[startMatrix[0].length];
-        for (int j = 0; j < permutMatrix[0].length; j++) {
-            double[] column = new double[permutMatrix.length];
-            for (int i = 0; i < permutMatrix.length; i++) {
-                column[i] = permutMatrix[i][j];
-            }
-            int index = findColumnIndex(startMatrix, column);
-            permutationVector[j] = index;
-        }
-        return permutationVector;
-    }
-
-
-    private static int findColumnIndex(double[][] matrix, double[] column) {
-        for (int j = 0; j < matrix[0].length; j++) {
-            boolean match = true;
-            for (int i = 0; i < matrix.length; i++) {
-                if (matrix[i][j] != column[i]) {
-                    match = false;
-                    break;
-                }
-            }
-            if (match) {
-                return j;
-            }
-        }
-        return -1; // if column was not found, return -1
-    }
-
 }
 
 
