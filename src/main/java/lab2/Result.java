@@ -19,20 +19,37 @@ class Result {
      * 2. 2D_DOUBLE_ARRAY matrix
      * 3. INTEGER epsilon
      */
+    public static boolean validateMatrix(int n, final List<List<Double>> matrix) {
+        if (matrix.size() == n) {
+            for (int i = 0; i < n; i++) {
+                if (!(matrix.get(i).size() == n + 1)) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public static List<Double> solveByGaussSeidel(int n, List<List<Double>> matrix, double epsilon) {
+        if (!validateMatrix(n, matrix)) {
+            isMethodApplicable = false;
+            errorMessage = "\"The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.\"";
+            return null;
+        }
         double[][] massiveMatrix = getQuadraticMassiveOfMatrix(n, matrix);
         double[] bVector = getBVector(n, matrix);
         double[][] diagonalDominanceMatrix = getDiagonalDominanceMatrix(n, massiveMatrix);
         if (diagonalDominanceMatrix == null) {
             isMethodApplicable = false;
-            errorMessage = "The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.";
+            errorMessage = "\"The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.\"";
             return null; //null value will be ignored by error "isMethodApplicable"
         } else {
-            int[] permutVecor = getPermutationVector(massiveMatrix, diagonalDominanceMatrix);
+            int[] permutationVector = getPermutationVector(massiveMatrix, diagonalDominanceMatrix);
             double[] array = getXVector(n, diagonalDominanceMatrix, bVector, epsilon);
-            double[] permutedBackVector = new double[permutVecor.length];
-            for (int i = 0; i<permutVecor.length; i++) {
-                permutedBackVector[permutVecor[i]] = array[i];
+            //permute columns to origin sequence
+            double[] permutedBackVector = new double[permutationVector.length];
+            for (int i = 0; i < permutationVector.length; i++) {
+                permutedBackVector[permutationVector[i]] = array[i];
             }
             return Arrays.stream(permutedBackVector).boxed().collect(Collectors.toList());
         }
