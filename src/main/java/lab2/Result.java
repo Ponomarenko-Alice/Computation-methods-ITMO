@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 class Result {
 
-    private static final int MAX_ITERATIONS_COUNT = 1000;
+    private static final int MAX_ITERATIONS_COUNT = 10000;
     public static boolean isMethodApplicable = true;
     public static String errorMessage;
 
@@ -33,7 +33,8 @@ class Result {
     public static List<Double> solveByGaussSeidel(int n, List<List<Double>> matrix, double epsilon) {
         if (!validateMatrix(n, matrix)) {
             isMethodApplicable = false;
-            errorMessage = "\"The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.\"";
+            errorMessage = "The system has no diagonal dominance for this method. " +
+                    "Method of the Gauss-Seidel is not applicable.";
             return null;
         }
         double[][] massiveMatrix = getQuadraticMassiveOfMatrix(n, matrix);
@@ -41,7 +42,8 @@ class Result {
         double[][] diagonalDominanceMatrix = getDiagonalDominanceMatrix(n, massiveMatrix);
         if (diagonalDominanceMatrix == null) {
             isMethodApplicable = false;
-            errorMessage = "\"The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.\"";
+            errorMessage = "The system has no diagonal dominance for this method." +
+                    " Method of the Gauss-Seidel is not applicable.";
             return null; //null value will be ignored by error "isMethodApplicable"
         } else {
             int[] permutationVector = getPermutationVector(massiveMatrix, diagonalDominanceMatrix);
@@ -81,7 +83,8 @@ class Result {
                 approaching[i] = (bVector[i] - sum1 - sum2) / massiveMatrix[i][i];
             }
             iterationCount++;
-        } while (!checkStopPoint(n, massiveMatrix, approaching, bVector, epsilon) && iterationCount < MAX_ITERATIONS_COUNT);
+        } while (!checkStopPoint(n, massiveMatrix, approaching, bVector, epsilon)
+                && iterationCount < MAX_ITERATIONS_COUNT);
         return approaching;
     }
 
