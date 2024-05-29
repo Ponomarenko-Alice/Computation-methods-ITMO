@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 class Result {
 
-    private static final int MAX_ITERATIONS_COUNT = 10000;
+    private static final int MAX_ITERATIONS_COUNT = 1000;
     public static boolean isMethodApplicable = true;
     public static String errorMessage;
 
@@ -33,8 +33,7 @@ class Result {
     public static List<Double> solveByGaussSeidel(int n, List<List<Double>> matrix, double epsilon) {
         if (!validateMatrix(n, matrix)) {
             isMethodApplicable = false;
-            errorMessage = "The system has no diagonal dominance for this method. " +
-                    "Method of the Gauss-Seidel is not applicable.";
+            errorMessage = "The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.";
             return null;
         }
         double[][] massiveMatrix = getQuadraticMassiveOfMatrix(n, matrix);
@@ -42,8 +41,7 @@ class Result {
         double[][] diagonalDominanceMatrix = getDiagonalDominanceMatrix(n, massiveMatrix);
         if (diagonalDominanceMatrix == null) {
             isMethodApplicable = false;
-            errorMessage = "The system has no diagonal dominance for this method." +
-                    " Method of the Gauss-Seidel is not applicable.";
+            errorMessage = "The system has no diagonal dominance for this method. Method of the Gauss-Seidel is not applicable.";
             return null; //null value will be ignored by error "isMethodApplicable"
         } else {
             int[] permutationVector = getPermutationVector(massiveMatrix, diagonalDominanceMatrix);
@@ -83,8 +81,7 @@ class Result {
                 approaching[i] = (bVector[i] - sum1 - sum2) / massiveMatrix[i][i];
             }
             iterationCount++;
-        } while (!checkStopPoint(n, massiveMatrix, approaching, bVector, epsilon)
-                && iterationCount < MAX_ITERATIONS_COUNT);
+        } while (!checkStopPoint(n, massiveMatrix, approaching, bVector, epsilon) && iterationCount < MAX_ITERATIONS_COUNT);
         return approaching;
     }
 
@@ -132,9 +129,25 @@ class Result {
      * @return new matrix equal with initial matrix with diagonal dominance or null if one doesn't exist
      */
     private static double[][] getDiagonalDominanceMatrix(int n, double[][] matrix) {
-        boolean isDiagonalDominant;
-        int countOfPermutations = 1;
-        for (int i = 1; i < n + 1; i++) {
+        boolean isDiagonalDominant = true;
+        //check for diagonal dominance original matrix without permutations
+        for (int j = 0; j < n; j++) {
+            double sum = 0;
+            for (int k = 0; k < n; k++) {
+                sum += Math.abs(matrix[j][k]);
+            }
+            //subtract module of a_ii
+            if (sum - Math.abs(matrix[j][j]) > Math.abs(matrix[j][j])) {
+                isDiagonalDominant = false;
+            }
+        }
+        if (isDiagonalDominant) {
+            return matrix;
+        }
+
+
+        long countOfPermutations = 1;
+        for (int i = 1; i < Math.min(n + 1, 1000); i++) {
             countOfPermutations *= i;
         }
         for (int i = 0; i < countOfPermutations; i++) {
@@ -180,6 +193,7 @@ class Result {
                 }
             }
             result.add(permutedMatrix);
+            if (result.size() > 1000) break;
         }
         return result;
     }
@@ -243,5 +257,3 @@ class Result {
     }
 
 }
-
-
