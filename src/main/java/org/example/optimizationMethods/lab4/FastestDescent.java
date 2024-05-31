@@ -2,10 +2,8 @@ package org.example.optimizationMethods.lab4;
 
 import org.example.optimizationMethods.CubePoint;
 
-
 public class FastestDescent {
-    private static final double epsilon = 0.01;
-    private static final double delta = 0.25;
+    private static final double epsilon = 0.001;
 
     private static double getValueOfFunction(double a, double b, double c) {
         return 2 * a * a + b * b * b + c * c - a * b + 2 * a * c - b;
@@ -23,21 +21,48 @@ public class FastestDescent {
         return 2 * c + 2 * a;
     }
 
+    private static CubePoint getGradient(double a, double b, double c) {
+        return new CubePoint(getADerivativeFunc(a, b, c),
+                getBDerivativeFunc(a, b, c),
+                getCDerivativeFunc(a, b, c));
+    }
+
+    private static double findOptimalStep(CubePoint point, CubePoint gradient) {
+        double a0 = point.getX();
+        double b0 = point.getY();
+        double c0 = point.getZ();
+        double a1 = gradient.getX();
+        double b1 = gradient.getY();
+        double c1 = gradient.getZ();
+        return (2 * a1 * a1 + 6 * b1 * b1 * b0 + 2 * c1 * c1 - 3 * a1 * b1 + 2 * a1 * c1 + 2 * c1 * c1) / 6 * b1 * b1 * b1;
+
+    }
 
     public static void main(String[] args) {
-        CubePoint point = new CubePoint(0, 0, 0);
+        CubePoint point = new CubePoint(0.1, 0.1, 0.1);
         double functionValue = getValueOfFunction(point.getX(), point.getY(), point.getZ());
 
-        //double newFunctionValue = getValueOfFunction(newA, newB, newC);
-//        while (Math.abs(newFunctionValue - functionValue) > epsilon) {
-//            functionValue = newFunctionValue;
-//
-//            newA = a + delta * cubeGradient.getA();
-//            newB = b + delta * cubeGradient.getB();
-//            newC = c + delta * cubeGradient.getC();
-//            newFunctionValue = getValueOfFunction(newA, newB, newC);
-//        }
-//        System.out.println(newFunctionValue);
+        while (true) {
+            CubePoint gradient = getGradient(point.getX(), point.getY(), point.getZ());
+            double optimumH = findOptimalStep(point, gradient);
+            if (optimumH < epsilon) {
+                break;
+            }
 
+            double optimalStep = findOptimalStep(point, gradient);
+            point.setX(point.getX() - optimalStep * gradient.getX());
+            point.setY(point.getY() - optimalStep * gradient.getY());
+            point.setZ(point.getZ() - optimalStep * gradient.getZ());
+
+            double newFunctionValue = getValueOfFunction(point.getX(), point.getY(), point.getZ());
+            if (Math.abs(newFunctionValue - functionValue) < epsilon) {
+                break;
+            }
+
+            functionValue = newFunctionValue;
+        }
+
+        System.out.println("Optimal function value: " + functionValue);
+         System.out.println("Optimal point: (" + point.getX() + ", " + point.getY() + ", " + point.getZ() + ")");
     }
 }

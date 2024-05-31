@@ -1,8 +1,8 @@
 package org.example.optimizationMethods.lab4;
 
 public class GradientDescent {
-    private static final double epsilon = 0.01;
-    private static final double delta = 0.1;
+    private static final double epsilon = 0.001;
+    private static final double delta = 0.0001;
 
     private static double getValueOfFunction(double a, double b, double c) {
         return 2 * a * a + b * b * b + c * c - a * b + 2 * a * c - b;
@@ -27,7 +27,7 @@ public class GradientDescent {
     }
 
     public static void main(String[] args) {
-        double a = 0.5, b = 0.5, c = 0.5;
+        double a = 0.1, b = 0.1, c = 0.1;
         double functionValue = getValueOfFunction(a, b, c);
         CubeGradient cubeGradient = getCubeGradient(a, b, c);
         double newA = a + delta * cubeGradient.getA();
@@ -45,7 +45,7 @@ public class GradientDescent {
             newC = c + delta * cubeGradient.getC();
             newFunctionValue = getValueOfFunction(newA, newB, newC);
         }
-        System.out.println(newFunctionValue);
-
+        System.out.println("Optimal function value: " + newFunctionValue);
+        System.out.println("Optimal point: (" + newA + ", " + newB + ", " + newC + ")");
     }
 }
