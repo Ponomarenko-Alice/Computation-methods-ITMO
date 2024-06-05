@@ -34,20 +34,16 @@ public class FastestDescent {
         double a1 = gradient.getX();
         double b1 = gradient.getY();
         double c1 = gradient.getZ();
-        return (2 * a1 * a1 + 6 * b1 * b1 * b0 + 2 * c1 * c1 - 3 * a1 * b1 + 2 * a1 * c1 + 2 * c1 * c1) / 6 * b1 * b1 * b1;
+        return -(2 * a1 * a1 + 6 * b1 * b1 * b0 + 2 * c1 * c1 - 3 * a1 * b1 + 2 * a1 * c1 + 2 * c1 * c1) / 6 * b1 * b1 * b1;
 
     }
 
     public static void main(String[] args) {
-        CubePoint point = new CubePoint(0.1, 0.1, 0.1);
+        CubePoint point = new CubePoint(-0.2, 0, 0);
         double functionValue = getValueOfFunction(point.getX(), point.getY(), point.getZ());
 
         while (true) {
             CubePoint gradient = getGradient(point.getX(), point.getY(), point.getZ());
-            double optimumH = findOptimalStep(point, gradient);
-            if (optimumH < epsilon) {
-                break;
-            }
 
             double optimalStep = findOptimalStep(point, gradient);
             point.setX(point.getX() - optimalStep * gradient.getX());
@@ -63,6 +59,6 @@ public class FastestDescent {
         }
 
         System.out.println("Optimal function value: " + functionValue);
-         System.out.println("Optimal point: (" + point.getX() + ", " + point.getY() + ", " + point.getZ() + ")");
+        System.out.println("Optimal point: (" + point.getX() + ", " + point.getY() + ", " + point.getZ() + ")");
     }
 }

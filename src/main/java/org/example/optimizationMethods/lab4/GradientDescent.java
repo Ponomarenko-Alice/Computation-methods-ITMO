@@ -36,6 +36,7 @@ public class GradientDescent {
         double newFunctionValue = getValueOfFunction(newA, newB, newC);
         while (Math.abs(newFunctionValue - functionValue) > epsilon) {
             cubeGradient = getCubeGradient(newA, newB, newC);
+            System.out.println("grad" + cubeGradient.getA() + " " + cubeGradient.getB() + " " + cubeGradient.getC());
             functionValue = newFunctionValue;
             a = newA;
             b = newB;
@@ -44,8 +45,10 @@ public class GradientDescent {
             newB = b + delta * cubeGradient.getB();
             newC = c + delta * cubeGradient.getC();
             newFunctionValue = getValueOfFunction(newA, newB, newC);
+            System.out.println(newFunctionValue);
+            System.out.println(newA + " " + newB + " " + newC);
         }
-        System.out.println("Optimal function value: " + newFunctionValue);
+        System.out.println("Optimal function value: " + (newFunctionValue + epsilon));
         System.out.println("Optimal point: (" + newA + ", " + newB + ", " + newC + ")");
     }
 }
