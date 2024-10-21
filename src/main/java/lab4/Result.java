@@ -45,7 +45,6 @@ public class Result {
         n = n % 2 == 0 ? n + 2 : n + 1;
         double h = len / n;
 
-        // Проверка на то, имеется ли разрыв второго рода.
         for (double t = a; t < b; t += h) {
             if (func.apply(t).isInfinite() || func.apply(t).isNaN()) {
                 has_discontinuity = true;
@@ -54,7 +53,7 @@ public class Result {
             }
         }
 
-        //если a < b то полагаем отрезок [b, a]
+        //if a < b: define segment [b, a]
         if (flag) {
             double c = a;
             a = b;
@@ -70,33 +69,32 @@ public class Result {
             try {
                 sum = h / 3 * (func.apply(x0) + 4 * func.apply(x1) + func.apply(x2));
             } catch (ArithmeticException e) {
-                //устранимая точка развыва, берем число рядом
-                sum = h / 3 * (func.apply(x0 + h / 10) + 4 * func.apply(x1 + h / 10) + func.apply(x2 + h / 10));
+                sum = h / 3 * (func.apply(x0 + h / 10) + 4 * func.apply(x1 + h / 10)
+                        + func.apply(x2 + h / 10));
             }
             integral += sum;
             x0 = x2;
             x2 += 2 * h;
 
         }
-        // Последний шаг, который меньше 2
         if (x0 < b) {
             try {
                 double x1 = (x0 + b) / 2;
                 integral += (b - x0) / 6 * (func.apply(x0) + 4 * func.apply(x1) + func.apply(b));
             } catch (ArithmeticException e) {
                 double x1 = (x0 + b) / 2;
-                integral += (b - x0) / 6 * (func.apply(x0 - h / 10) + 4 * func.apply(x1 - h / 10) + func.apply(b - h / 10));
+                integral += (b - x0) / 6 * (func.apply(x0 - h / 10) +
+                        4 * func.apply(x1 - h / 10) + func.apply(b - h / 10));
             }
         }
         return flag ? -integral : integral;
     }
 
     public static void main(String[] args) {
-        // Пример использования
-        double a = 1;
-        double b = 2;
-        int function_number = 1; // выбор функции по номеру (1-5)
-        double epsilon = 0.12;
+        double a = -1;
+        double b = 1;
+        int function_number = 4;
+        double epsilon = 0.001;
 
         double result = calculate_integral(a, b, function_number, epsilon);
         if (!has_discontinuity) {

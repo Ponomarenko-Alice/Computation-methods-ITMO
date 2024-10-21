@@ -1,6 +1,5 @@
 package lab2;
 
-import javax.lang.model.type.ArrayType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -75,9 +74,8 @@ public class M {
         indices[j] = temp;
     }
 
-    // ищем в первой [0, 2, 1]
     private static int[] getPermutationVector(int[][] startMatrix, int[][] permutMatrix) {
-        int[] permutationVector = new int[startMatrix[0].length]; // Размерность вектора соответствует количеству столбцов
+        int[] permutationVector = new int[startMatrix[0].length]; // The dimension of the vector corresponds to the number of columns
         for (int j = 0; j < permutMatrix[0].length; j++) {
             int[] column = new int[permutMatrix.length];
             for (int i = 0; i < permutMatrix.length; i++) {
@@ -103,12 +101,8 @@ public class M {
                 return j;
             }
         }
-        return -1; // Если столбец не найден, вернуть -1
+        return -1;
     }
-
-
-
-
 
 
     private static void printMatrix(int[][] matrix) {

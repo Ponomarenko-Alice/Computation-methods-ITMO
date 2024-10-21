@@ -3,17 +3,6 @@ package lab1;
 import java.util.List;
 
 class Result {
-
-    /*
-     * Complete the 'interpolate_by_newton' function below.
-     *
-     * The function is expected to return a DOUBLE.
-     * The function accepts following parameters:
-     *  1. DOUBLE_ARRAY x_axis
-     *  2. DOUBLE_ARRAY y_axis
-     *  3. DOUBLE x
-     */
-
     public static double interpolate_by_newton(List<Double> x_axis, List<Double> y_axis, double x) {
         int pointsMount = getValidateInputCount(x_axis, y_axis);
         double valueOfPolinom = y_axis.getFirst();
@@ -32,10 +21,10 @@ class Result {
     }
 
     /**
-     * @param x_axis Список аргументов
-     * @param y_axis Списов значений функции соответствующих аргументов
-     * @param n      количество точек (т.е. для раздененной разности f(x0, x1, ... xn).
-     * @return коэффициент полинома Ньютона - разделенную разность для n точек.
+     * @param x_axis arguments array
+     * @param y_axis List of function values of corresponding arguments
+     * @param n      number of points (i.e. for the divided difference f(x0, x1, ... xn).
+     * @return Newton's polynomial coefficient is the divided difference for n points.
      */
     private static double getDifference(List<Double> x_axis, List<Double> y_axis, int n) throws DivisionByZeroException {
         double resultDifference = 0.0d;
@@ -65,12 +54,3 @@ class Result {
     }
 }
 
-/**
- * lab1.Result will be calculated until the invalid point.
- */
-class DivisionByZeroException extends RuntimeException {
-    @Override
-    public String getMessage() {
-        return "Invalid input - two points with the same x coordinates";
-    }
-}

@@ -16,12 +16,9 @@ public class Main {
 
         int n = Integer.parseInt(bufferedReader.readLine().trim());
 
-        int matrixRows = n;
-        int matrixColumns = n+1;
-
         List<List<Double>> matrix = new ArrayList<>();
 
-        IntStream.range(0, matrixRows).forEach(i -> {
+        IntStream.range(0, n).forEach(i -> {
             try {
                 matrix.add(
                         Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
@@ -37,7 +34,7 @@ public class Main {
 
         List<Double> result = Result.solveByGaussSeidel(n, matrix, epsilon);
 
-        if (Result.isMethodApplicable){
+        if (Result.isMethodApplicable) {
             bufferedWriter.write(
                     result.stream()
                             .map(Object::toString)

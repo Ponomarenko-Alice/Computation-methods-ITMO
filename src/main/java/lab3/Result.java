@@ -39,6 +39,7 @@ class Result {
         }
         return getCeilResult(currentApproximations);
     }
+
     private static List<Double> getCeilResult(List<Double> list) {
         double scale = Math.pow(10, 6);
         list.replaceAll(aDouble -> Math.ceil(aDouble * scale) / scale);
